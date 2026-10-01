@@ -1,0 +1,22 @@
+{
+  "name": "banda-huevos-camara",
+  "version": "1.0.0",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "start": "expo start",
+    "tunel": "expo start --tunnel",
+    "android": "expo start --android",
+    "ios": "expo start --ios"
+  },
+  "dependencies": {
+    "@react-native-async-storage/async-storage": "2.2.0",
+    "expo": "~57.0.24",
+    "expo-build-properties": "~57.0.21",
+    "expo-camera": "~57.0.5",
+    "expo-image-manipulator": "~57.0.19",
+    "expo-status-bar": "~57.0.1",
+    "react": "19.2.3",
+    "react-native": "0.86.3"
+  }
+}

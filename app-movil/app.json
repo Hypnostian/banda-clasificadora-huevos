@@ -1,0 +1,34 @@
+{
+  "expo": {
+    "name": "Banda Huevos",
+    "slug": "banda-huevos-camara",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.universidad.bandahuevos",
+      "infoPlist": {
+        "NSCameraUsageDescription": "La camara captura los huevos que pasan por la banda.",
+        "NSAppTransportSecurity": { "NSAllowsArbitraryLoads": true }
+      }
+    },
+    "android": {
+      "package": "com.universidad.bandahuevos",
+      "permissions": ["android.permission.CAMERA"]
+    },
+    "plugins": [
+      [
+        "expo-camera",
+        { "cameraPermission": "La camara captura los huevos que pasan por la banda." }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "android": { "usesCleartextTraffic": true }
+        }
+      ]
+    ]
+  }
+}

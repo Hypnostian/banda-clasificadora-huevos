@@ -1,0 +1,44 @@
+# Broker compatible con Kafka para la banda orientada a eventos.
+#
+# Se usa Redpanda y no Kafka "oficial" a proposito:
+#   * un solo binario, sin ZooKeeper y sin JVM
+#   * arranca en ~5 s contra los ~60-90 s de un cluster Kafka + ZK
+#   * ~400 MB de RAM contra ~1.5 GB
+#   * el protocolo es el mismo, aiokafka no nota la diferencia
+# En una instancia t3.medium (2 vCPU / 4 GB) con ventana de 4 horas, eso no es
+# una preferencia estetica: es la diferencia entre alcanzar a hacer la demo o no.
+
+services:
+  redpanda:
+    image: docker.redpanda.com/redpandadata/redpanda:v24.2.7
+    container_name: banda-redpanda
+    command:
+      - redpanda start
+      - --smp 1
+      - --memory 512M
+      - --overprovisioned
+      - --node-id 0
+      - --check=false
+      - --kafka-addr PLAINTEXT://0.0.0.0:29092,OUTSIDE://0.0.0.0:9092
+      - --advertise-kafka-addr PLAINTEXT://redpanda:29092,OUTSIDE://localhost:9092
+    ports:
+      - "9092:9092"
+      - "9644:9644"
+    healthcheck:
+      test: ["CMD-SHELL", "rpk cluster health | grep -q 'Healthy:.*true'"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  # Consola web del broker: ver los topicos y los mensajes en vivo durante la
+  # sustentacion vale mas que cualquier diapositiva. http://<ip>:8080
+  consola:
+    image: docker.redpanda.com/redpandadata/console:v2.7.2
+    container_name: banda-consola
+    depends_on:
+      redpanda:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    environment:
+      KAFKA_BROKERS: redpanda:29092

@@ -1,0 +1,11 @@
+# Ruta absoluta en el entorno virtual de Google Colab
+path: /content/huevos
+
+# Carpetas de imágenes (relativas a la ruta de arriba)
+train: train/images
+val: valid/images
+test: test/images
+
+# Configuración de clases
+nc: 2
+names: ['Roto', 'Sano']

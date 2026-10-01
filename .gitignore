@@ -1,0 +1,39 @@
+# --- Secretos: NUNCA al repositorio ---
+*.pem
+*.key
+.env
+backend/.env
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# --- Artefactos de ejecucion ---
+backend/evidencias/
+backend/logs/
+*.log
+
+# --- Paquetes .zip: repiten lo que ya esta descomprimido en las carpetas ---
+*.zip
+# checkpoint intermedio, no se usa
+entrenamientos/yolov8m_huevos_v1/weights/last.pt
+
+# --- Node / Expo ---
+node_modules/
+.expo/
+.expo-shared/
+dist/
+npm-debug.*
+
+# --- Editores / SO ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# --- Pesos de los modelos: van en GitHub Releases (sin cupo LFS) ---
+*.onnx
+*.pt

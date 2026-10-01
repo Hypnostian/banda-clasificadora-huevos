@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Banda de Clasificacion</title>
+<style>
+  /* Paleta: roles de estado (good / warning / critical). El color NUNCA lleva
+     el significado solo: cada ruta va siempre con icono + etiqueta + textura,
+     porque critical vs good tienen DeltaE 4.1 en deuteranopia. */
+  :root {
+    color-scheme: dark;
+    --plane:     #0d0d0d;
+    --surface:   #1a1a19;
+    --ink:       #ffffff;
+    --ink-2:     #c3c2b7;
+    --muted:     #898781;
+    --grid:      #2c2c2a;
+    --baseline:  #383835;
+    --borde:     rgba(255,255,255,0.10);
+    --aceptado:  #0ca30c;
+    --revision:  #fab219;
+    --descarte:  #d03b3b;
+    --acento:    #3987e5;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 20px 16px 40px;
+    background: var(--plane); color: var(--ink);
+    font: 14px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; }
+  header { display: flex; flex-wrap: wrap; gap: 12px; align-items: baseline; justify-content: space-between; margin-bottom: 20px; }
+  h1 { font-size: 19px; font-weight: 650; margin: 0; letter-spacing: -0.01em; }
+  h1 small { display: block; font-size: 12px; font-weight: 400; color: var(--muted); letter-spacing: 0; margin-top: 2px; }
+  .estado { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--ink-2); }
+  .punto { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); }
+  .punto.vivo { background: var(--aceptado); box-shadow: 0 0 0 3px rgba(12,163,12,.18); }
+  .punto.caido { background: var(--descarte); box-shadow: 0 0 0 3px rgba(208,59,59,.18); }
+
+  .tarjetas { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap: 10px; margin-bottom: 18px; }
+  .t { background: var(--surface); border: 1px solid var(--borde); border-radius: 10px; padding: 13px 14px; }
+  .t .etq { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+  .t .val { font-size: 27px; font-weight: 600; margin-top: 4px; line-height: 1.1; }
+  .t .sub { font-size: 11px; color: var(--ink-2); margin-top: 2px; }
+  .t.hero .val { font-size: 38px; }
+  .t.hero { grid-column: span 2; }
+
+  .panel { background: var(--surface); border: 1px solid var(--borde); border-radius: 10px; padding: 15px 16px; margin-bottom: 14px; }
+  .panel h2 { font-size: 13px; font-weight: 600; margin: 0 0 3px; }
+  .panel p.nota { font-size: 11px; color: var(--muted); margin: 0 0 14px; }
+
+  .leyenda { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 10px; font-size: 12px; color: var(--ink-2); }
+  .leyenda span { display: inline-flex; align-items: center; gap: 6px; }
+  .sw { width: 11px; height: 11px; border-radius: 2px; flex: none; }
+
+  svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .eje { font-size: 10px; fill: var(--muted); }
+
+  table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  th { text-align: left; font-weight: 500; color: var(--muted); font-size: 11px; text-transform: uppercase;
+       letter-spacing: .04em; padding: 0 10px 8px 0; border-bottom: 1px solid var(--grid); }
+  td { padding: 7px 10px 7px 0; border-bottom: 1px solid var(--grid); font-variant-numeric: tabular-nums; color: var(--ink-2); }
+  td.id { font-family: ui-monospace, "Cascadia Code", monospace; font-size: 11.5px; color: var(--muted); }
+  .chip { display: inline-flex; align-items: center; gap: 5px; font-weight: 600; font-size: 11.5px; white-space: nowrap; }
+  .chip i { font-style: normal; width: 15px; height: 15px; border-radius: 3px; display: grid; place-items: center;
+            font-size: 10px; color: #0d0d0d; flex: none; }
+  .ACEPTADO { color: var(--aceptado); } .ACEPTADO i { background: var(--aceptado); }
+  .REVISION { color: var(--revision); } .REVISION i { background: var(--revision); }
+  .DESCARTE { color: var(--descarte); } .DESCARTE i { background: var(--descarte); color: #fff; }
+
+  .politica { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px,1fr)); gap: 16px; }
+  .politica label { display: block; font-size: 12px; color: var(--ink-2); margin-bottom: 6px; }
+  .politica label b { color: var(--ink); font-variant-numeric: tabular-nums; }
+  input[type=range] { width: 100%; accent-color: var(--acento); }
+  .vacio { color: var(--muted); font-size: 12.5px; padding: 14px 0; }
+  @media (max-width: 560px) { .t.hero { grid-column: span 2; } h1 { font-size: 17px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Banda de clasificacion de huevos
+      <small>YOLOv8m &rarr; ONNX Runtime &rarr; ruteo por costo asimetrico &rarr; eventos</small>
+    </h1>
+    <div class="estado"><span class="punto" id="punto"></span><span id="conexion">conectando...</span></div>
+  </header>
+
+  <div class="tarjetas">
+    <div class="t hero">
+      <div class="etq">Throughput</div>
+      <div class="val"><span id="thr">0</span> <span style="font-size:15px;color:var(--muted)">huevos/h</span></div>
+      <div class="sub" id="cumpl">&mdash;</div>
+    </div>
+    <div class="t"><div class="etq">Huevos inspeccionados</div><div class="val" id="total">0</div><div class="sub" id="uptime">&mdash;</div></div>
+    <div class="t"><div class="etq">Tasa de rotura</div><div class="val" id="rotura">0%</div><div class="sub" id="descartes">0 desviados por el servo</div></div>
+    <div class="t"><div class="etq">Tasa de revision</div><div class="val" id="revision">0%</div><div class="sub" id="curaduria">0 candidatos a reetiquetar</div></div>
+    <div class="t"><div class="etq">Latencia inferencia</div><div class="val" id="p95">0<span style="font-size:15px;color:var(--muted)"> ms</span></div><div class="sub" id="p50">&mdash;</div></div>
+  </div>
+
+  <section class="panel">
+    <h2>Ruteo por intervalo de 10 s</h2>
+    <p class="nota">Ultimos 10 minutos. Cada segmento lleva textura propia ademas del color.</p>
+    <div class="leyenda">
+      <span><i class="sw" style="background:var(--aceptado)"></i>&#10003; Aceptado</span>
+      <span><i class="sw" style="background:var(--revision)"></i>&#9888; Revision</span>
+      <span><i class="sw" style="background:var(--descarte)"></i>&#10007; Descarte</span>
+    </div>
+    <svg id="grafica" viewBox="0 0 900 230" role="img" aria-label="Huevos ruteados por intervalo de 10 segundos">
+      <defs>
+        <pattern id="pRev" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+          <rect width="6" height="6" fill="#fab219"/><line x1="0" y1="0" x2="0" y2="6" stroke="#8a5f00" stroke-width="2.4"/>
+        </pattern>
+        <pattern id="pDes" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(135)">
+          <rect width="6" height="6" fill="#d03b3b"/><line x1="0" y1="0" x2="0" y2="6" stroke="#6d1414" stroke-width="2.4"/>
+        </pattern>
+      </defs>
+      <g id="capaEjes"></g><g id="capaBarras"></g>
+    </svg>
+  </section>
+
+  <section class="panel">
+    <h2>Politica de decision (en caliente)</h2>
+    <p class="nota">Costo relativo falso negativo : falso positivo = <b id="costos">12 : 1</b>. Mover un umbral reruta los huevos siguientes sin reiniciar el servicio.</p>
+    <div class="politica">
+      <div><label>Umbral de descarte &mdash; p(Roto) &ge; <b id="vTauRoto">0.35</b></label>
+        <input type="range" id="tauRoto" min="0.05" max="0.95" step="0.01" value="0.35"></div>
+      <div><label>Umbral de aceptacion &mdash; p(Sano) &ge; <b id="vTauSano">0.60</b></label>
+        <input type="range" id="tauSano" min="0.05" max="0.95" step="0.01" value="0.60"></div>
+      <div><label>Confianza minima de deteccion &mdash; <b id="vConf">0.20</b></label>
+        <input type="range" id="confMin" min="0.05" max="0.90" step="0.01" value="0.20"></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Ultimos huevos clasificados</h2>
+    <p class="nota">Trazabilidad por <code>egg_id</code>: cada fila es un evento <code>huevo.clasificado</code> del topico.</p>
+    <table>
+      <thead><tr><th>egg_id</th><th>Clase</th><th>Confianza</th><th>Ruta</th><th>Motivo</th></tr></thead>
+      <tbody id="filas"><tr><td colspan="5" class="vacio">Esperando frames de la app camara...</td></tr></tbody>
+    </table>
+  </section>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const ICONO = { ACEPTADO: '✓', REVISION: '⚠', DESCARTE: '✗' };
+const RELLENO = { ACEPTADO: 'var(--aceptado)', REVISION: 'url(#pRev)', DESCARTE: 'url(#pDes)' };
+const ORDEN = ['ACEPTADO', 'REVISION', 'DESCARTE'];
+
+function pintar(d) {
+  $('thr').textContent = (d.throughput_huevos_hora || 0).toLocaleString('es-CO');
+  $('cumpl').textContent = `${d.cumplimiento_pct ?? 0}% del objetivo (${(d.objetivo_huevos_hora||0).toLocaleString('es-CO')}/h)`;
+  $('total').textContent = d.total_huevos ?? 0;
+  $('uptime').textContent = `turno de ${Math.round((d.uptime_s||0)/60)} min`;
+  $('rotura').textContent = `${d.tasa_rotura_pct ?? 0}%`;
+  $('descartes').textContent = `${d.desviados_por_servo ?? 0} desviados por el servo`;
+  $('revision').textContent = `${d.tasa_revision_pct ?? 0}%`;
+  $('curaduria').textContent = `${d.candidatos_reentrenamiento ?? 0} candidatos a reetiquetar`;
+  $('p95').innerHTML = `${d.latencia_p95_ms ?? 0}<span style="font-size:15px;color:var(--muted)"> ms</span>`;
+  $('p50').textContent = `p50 ${d.latencia_p50_ms ?? 0} ms · confianza media ${d.confianza_media ?? 0}`;
+  if (d.politica) {
+    $('costos').textContent = `${d.politica.costo_fn} : ${d.politica.costo_fp}`;
+    sincronizar('tauRoto', 'vTauRoto', d.politica.tau_roto);
+    sincronizar('tauSano', 'vTauSano', d.politica.tau_sano);
+    sincronizar('confMin', 'vConf', d.politica.conf_min_deteccion);
+  }
+  grafica(d.serie || []);
+  tabla(d.recientes || []);
+}
+
+let tocando = null;
+function sincronizar(slider, etiqueta, valor) {
+  if (tocando === slider || valor == null) return;
+  $(slider).value = valor; $(etiqueta).textContent = Number(valor).toFixed(2);
+}
+
+function grafica(serie) {
+  const W = 900, H = 230, ML = 34, MR = 8, MT = 10, MB = 26;
+  const ejes = $('capaEjes'), barras = $('capaBarras');
+  ejes.innerHTML = ''; barras.innerHTML = '';
+  const datos = serie.slice(-36);
+  const maximo = Math.max(1, ...datos.map(b => ORDEN.reduce((s, k) => s + (b[k] || 0), 0)));
+  const tope = Math.max(2, Math.ceil(maximo / 2) * 2);
+  const y = v => MT + (H - MT - MB) * (1 - v / tope);
+  const ns = 'http://www.w3.org/2000/svg';
+  const el = (t, a) => { const n = document.createElementNS(ns, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
+
+  for (let i = 0; i <= 4; i++) {
+    const v = tope * i / 4;
+    ejes.appendChild(el('line', { x1: ML, x2: W - MR, y1: y(v), y2: y(v),
+      stroke: i ? 'var(--grid)' : 'var(--baseline)', 'stroke-width': 1 }));
+    const t = el('text', { x: ML - 8, y: y(v) + 3.5, 'text-anchor': 'end', class: 'eje' });
+    t.textContent = Math.round(v); ejes.appendChild(t);
+  }
+  if (!datos.length) {
+    const t = el('text', { x: W / 2, y: H / 2, 'text-anchor': 'middle', class: 'eje' });
+    t.textContent = 'Sin datos todavia'; ejes.appendChild(t); return;
+  }
+
+  // Ancho de ranura fijo: con pocos intervalos las barras se quedan a la
+  // izquierda con su tamano real en vez de estirarse por todo el ancho.
+  const ancho = (W - ML - MR) / Math.max(datos.length, 18);
+  const bw = Math.max(4, Math.min(26, ancho - 5));
+  // Una marca de tiempo cada ~70 px para que las etiquetas no se pisen.
+  const paso = Math.max(1, Math.ceil(70 / ancho), Math.ceil(datos.length / 7));
+  datos.forEach((b, i) => {
+    const x = ML + i * ancho + (ancho - bw) / 2;
+    let acum = 0;
+    ORDEN.forEach(k => {
+      const v = b[k] || 0; if (!v) return;
+      const y0 = y(acum + v), alto = y(acum) - y0;
+      const arriba = acum + v >= ORDEN.reduce((s, kk) => s + (b[kk] || 0), 0) - 1e-9;
+      const r = el('rect', { x, y: y0, width: bw, height: Math.max(1, alto - 2),
+        fill: RELLENO[k], rx: arriba ? 4 : 0 });
+      r.appendChild(el('title')).textContent = `${k}: ${v} huevo(s)`;
+      barras.appendChild(r); acum += v;
+    });
+    if (i % paso === 0) {
+      const t = el('text', { x: x + bw / 2, y: H - MB + 15, 'text-anchor': 'middle', class: 'eje' });
+      t.textContent = new Date(b.t * 1000).toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      ejes.appendChild(t);
+    }
+  });
+}
+
+function tabla(filas) {
+  const tb = $('filas');
+  if (!filas.length) { tb.innerHTML = '<tr><td colspan="5" class="vacio">Esperando frames de la app camara...</td></tr>'; return; }
+  tb.innerHTML = filas.map(f => `
+    <tr>
+      <td class="id">${f.egg_id ?? ''}</td>
+      <td>${f.clase ?? ''}</td>
+      <td>${(f.confianza ?? 0).toFixed(3)}</td>
+      <td><span class="chip ${f.ruta}"><i>${ICONO[f.ruta] ?? '?'}</i>${f.ruta}</span></td>
+      <td style="color:var(--muted)">${(f.motivo ?? '').replace(/</g, '&lt;')}</td>
+    </tr>`).join('');
+}
+
+['tauRoto', 'tauSano', 'confMin'].forEach(id => {
+  const etiquetas = { tauRoto: 'vTauRoto', tauSano: 'vTauSano', confMin: 'vConf' };
+  const campos = { tauRoto: 'tau_roto', tauSano: 'tau_sano', confMin: 'conf_min_deteccion' };
+  const input = $(id);
+  input.addEventListener('input', () => { tocando = id; $(etiquetas[id]).textContent = Number(input.value).toFixed(2); });
+  input.addEventListener('change', async () => {
+    await fetch(`/politica?${campos[id]}=${input.value}`, { method: 'PUT' }).catch(() => {});
+    tocando = null;
+  });
+});
+
+function conectar() {
+  const es = new EventSource('/stream');
+  es.onopen = () => { $('punto').className = 'punto vivo'; $('conexion').textContent = 'en linea'; };
+  es.onmessage = e => { try { pintar(JSON.parse(e.data)); } catch (_) {} };
+  es.onerror = () => { $('punto').className = 'punto caido'; $('conexion').textContent = 'reconectando...'; };
+}
+fetch('/metricas').then(r => r.json()).then(pintar).catch(() => {});
+conectar();
+</script>
+</body>
+</html>

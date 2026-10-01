@@ -1,0 +1,7 @@
+path: /content/v3/dataset
+train: train/images
+val: val/images
+test: test/images
+benchmark: benchmark/images
+nc: 2
+names: ['Roto', 'Sano']

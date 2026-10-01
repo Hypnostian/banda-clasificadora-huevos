@@ -1,0 +1,116 @@
+{
+  "desglose": {
+    "tipo=Egg_X|Roto|modelo 1": [
+      0,
+      15
+    ],
+    "tipo=Egg_X|Roto|v3": [
+      0,
+      15
+    ],
+    "tipo=celular|Sano|modelo 1": [
+      0,
+      19
+    ],
+    "tipo=celular|Sano|v3": [
+      4,
+      19
+    ],
+    "tipo=damaged|Roto|modelo 1": [
+      7,
+      125
+    ],
+    "tipo=damaged|Roto|v3": [
+      6,
+      125
+    ],
+    "tipo=not_damaged|Sano|modelo 1": [
+      0,
+      24
+    ],
+    "tipo=not_damaged|Sano|v3": [
+      0,
+      24
+    ],
+    "color=blanco|Roto|modelo 1": [
+      7,
+      124
+    ],
+    "color=blanco|Roto|v3": [
+      6,
+      124
+    ],
+    "color=blanco|Sano|modelo 1": [
+      0,
+      25
+    ],
+    "color=blanco|Sano|v3": [
+      0,
+      25
+    ],
+    "color=marron|Roto|modelo 1": [
+      0,
+      16
+    ],
+    "color=marron|Roto|v3": [
+      0,
+      16
+    ],
+    "color=marron|Sano|modelo 1": [
+      0,
+      18
+    ],
+    "color=marron|Sano|v3": [
+      4,
+      18
+    ]
+  },
+  "contexto": {
+    "celular (la fuente dice SANO)|Roto|modelo 1": {
+      "DESCARTE": 80,
+      "ACEPTADO": 20,
+      "NO_DETECTADO": 2,
+      "REVISION": 6,
+      "n": 108
+    },
+    "celular (la fuente dice SANO)|Roto|v3": {
+      "DESCARTE": 104,
+      "ACEPTADO": 4,
+      "n": 108
+    },
+    "celular (la fuente dice SANO)|Sano|modelo 1": {
+      "ACEPTADO": 96,
+      "DESCARTE": 5,
+      "REVISION": 6,
+      "NO_DETECTADO": 1,
+      "n": 108
+    },
+    "celular (la fuente dice SANO)|Sano|v3": {
+      "ACEPTADO": 92,
+      "DESCARTE": 15,
+      "REVISION": 1,
+      "n": 108
+    },
+    "damaged (la fuente dice ROTO)|Roto|modelo 1": {
+      "DESCARTE": 106,
+      "REVISION": 2,
+      "n": 108
+    },
+    "damaged (la fuente dice ROTO)|Roto|v3": {
+      "DESCARTE": 107,
+      "ACEPTADO": 1,
+      "n": 108
+    },
+    "damaged (la fuente dice ROTO)|Sano|modelo 1": {
+      "ACEPTADO": 38,
+      "REVISION": 10,
+      "DESCARTE": 60,
+      "n": 108
+    },
+    "damaged (la fuente dice ROTO)|Sano|v3": {
+      "DESCARTE": 79,
+      "ACEPTADO": 29,
+      "n": 108
+    }
+  }
+}

@@ -1,0 +1,358 @@
+{
+  "deteccion": {
+    "modelo 1": {
+      "mAP50": 0.9769283965644762,
+      "mAP50-95": 0.923791436537673
+    },
+    "v3": {
+      "mAP50": 0.9713654469870826,
+      "mAP50-95": 0.9288980701448051
+    },
+    "dif_IC95": {
+      "mAP50": [
+        -0.03065672122839461,
+        0.01871210237472263
+      ],
+      "mAP50-95": [
+        -0.02014697445646259,
+        0.026520428121843496
+      ]
+    }
+  },
+  "ruteo": {
+    "rotos al EMPAQUE (aceptados)": {
+      "modelo 1": [
+        0,
+        140
+      ],
+      "v3": [
+        0,
+        140
+      ]
+    },
+    "rotos NO detectados (siguen de largo)": {
+      "modelo 1": [
+        7,
+        140
+      ],
+      "v3": [
+        6,
+        140
+      ]
+    },
+    "rotos que se escapan (las dos anteriores)": {
+      "modelo 1": [
+        7,
+        140
+      ],
+      "v3": [
+        6,
+        140
+      ]
+    },
+    "rotos a revision": {
+      "modelo 1": [
+        2,
+        140
+      ],
+      "v3": [
+        0,
+        140
+      ]
+    },
+    "sanos BOTADOS (descarte)": {
+      "modelo 1": [
+        0,
+        43
+      ],
+      "v3": [
+        4,
+        43
+      ]
+    },
+    "sanos a revision": {
+      "modelo 1": [
+        2,
+        43
+      ],
+      "v3": [
+        1,
+        43
+      ]
+    },
+    "sanos aceptados (lo correcto)": {
+      "modelo 1": [
+        41,
+        43
+      ],
+      "v3": [
+        38,
+        43
+      ]
+    }
+  },
+  "mcnemar": {
+    "rotos": [
+      2,
+      3,
+      1.0
+    ],
+    "sanos": [
+      5,
+      2,
+      0.453125
+    ]
+  },
+  "auc": {
+    "modelo 1": 1.0,
+    "v3": 0.9941416651872892
+  },
+  "robustez": {
+    "raya de lapicero en SANOS": {
+      "modelo 1": {
+        "DESCARTE": 25,
+        "ACEPTADO": 13,
+        "REVISION": 5,
+        "n": 43
+      },
+      "v3": {
+        "ACEPTADO": 37,
+        "REVISION": 1,
+        "DESCARTE": 5,
+        "n": 43
+      }
+    },
+    "sello de tinta en SANOS": {
+      "modelo 1": {
+        "ACEPTADO": 37,
+        "DESCARTE": 2,
+        "REVISION": 3,
+        "NO_DETECTADO": 1,
+        "n": 43
+      },
+      "v3": {
+        "ACEPTADO": 39,
+        "DESCARTE": 2,
+        "REVISION": 2,
+        "n": 43
+      }
+    },
+    "desenfoque r=3 en ROTOS": {
+      "modelo 1": {
+        "REVISION": 52,
+        "DESCARTE": 64,
+        "NO_DETECTADO": 23,
+        "ACEPTADO": 1,
+        "n": 140
+      },
+      "v3": {
+        "DESCARTE": 121,
+        "REVISION": 9,
+        "NO_DETECTADO": 9,
+        "ACEPTADO": 1,
+        "n": 140
+      }
+    },
+    "sobreexposicion 2.4x en ROTOS": {
+      "modelo 1": {
+        "DESCARTE": 42,
+        "NO_DETECTADO": 71,
+        "REVISION": 19,
+        "ACEPTADO": 8,
+        "n": 140
+      },
+      "v3": {
+        "DESCARTE": 99,
+        "NO_DETECTADO": 39,
+        "ACEPTADO": 2,
+        "n": 140
+      }
+    },
+    "subexposicion 0.35x en ROTOS": {
+      "modelo 1": {
+        "DESCARTE": 124,
+        "NO_DETECTADO": 9,
+        "REVISION": 5,
+        "ACEPTADO": 2,
+        "n": 140
+      },
+      "v3": {
+        "DESCARTE": 133,
+        "NO_DETECTADO": 6,
+        "ACEPTADO": 1,
+        "n": 140
+      }
+    },
+    "JPEG calidad 20 en ROTOS": {
+      "modelo 1": {
+        "DESCARTE": 112,
+        "NO_DETECTADO": 11,
+        "ACEPTADO": 7,
+        "REVISION": 10,
+        "n": 140
+      },
+      "v3": {
+        "DESCARTE": 131,
+        "NO_DETECTADO": 6,
+        "ACEPTADO": 2,
+        "REVISION": 1,
+        "n": 140
+      }
+    },
+    "JPEG calidad 20 en SANOS": {
+      "modelo 1": {
+        "ACEPTADO": 36,
+        "REVISION": 6,
+        "NO_DETECTADO": 1,
+        "n": 43
+      },
+      "v3": {
+        "ACEPTADO": 38,
+        "DESCARTE": 4,
+        "REVISION": 1,
+        "n": 43
+      }
+    }
+  },
+  "errores_graves": [
+    {
+      "img": "IMG_3346_jpeg.rf.36dbeff7f7cf6ae7b3ab5d7ee6f777ba.jpg",
+      "i": 0,
+      "real": "Sano",
+      "m1": "ACEPTADO",
+      "v3": "DESCARTE",
+      "p_roto_m1": 0.0004392564296722412,
+      "p_roto_v3": 0.07225528359413147
+    },
+    {
+      "img": "IMG_5152_jpeg.rf.9d18985613761d1b2cb1184d37ca7f3a.jpg",
+      "i": 0,
+      "real": "Sano",
+      "m1": "ACEPTADO",
+      "v3": "DESCARTE",
+      "p_roto_m1": 0.0030560195446014404,
+      "p_roto_v3": 0.9078223705291748
+    },
+    {
+      "img": "IMG_9537_jpeg.rf.d45a83959e6446cb78cace0dc92fa11b.jpg",
+      "i": 0,
+      "real": "Sano",
+      "m1": "ACEPTADO",
+      "v3": "DESCARTE",
+      "p_roto_m1": 0.001689136028289795,
+      "p_roto_v3": 0.20159146189689636
+    },
+    {
+      "img": "IMG_9876_jpeg.rf.a4fd50720835813bb8d441bc2287b5da.jpg",
+      "i": 0,
+      "real": "Sano",
+      "m1": "ACEPTADO",
+      "v3": "DESCARTE",
+      "p_roto_m1": 0.0025803744792938232,
+      "p_roto_v3": 0.14187875390052795
+    },
+    {
+      "img": "damaged_128_jpg.rf.6440027cb5dfb39087eba78cc22012fe.jpg",
+      "i": 1,
+      "real": "Roto",
+      "m1": "NO_DETECTADO",
+      "v3": "DESCARTE",
+      "p_roto_m1": null,
+      "p_roto_v3": 0.908892810344696
+    },
+    {
+      "img": "damaged_168_jpg.rf.4da321d481fbbf1e16f7b2bb401112cd.jpg",
+      "i": 6,
+      "real": "Roto",
+      "m1": "NO_DETECTADO",
+      "v3": "DESCARTE",
+      "p_roto_m1": null,
+      "p_roto_v3": 0.3056483864784241
+    },
+    {
+      "img": "damaged_206_jpg.rf.c29741bf71610d5e241b95dd56a1881e.jpg",
+      "i": 0,
+      "real": "Roto",
+      "m1": "DESCARTE",
+      "v3": "NO_DETECTADO",
+      "p_roto_m1": 0.6232053637504578,
+      "p_roto_v3": null
+    },
+    {
+      "img": "damaged_274_jpg.rf.ba7e02e21fcfbacf9c2a9c891d7a046c.jpg",
+      "i": 0,
+      "real": "Roto",
+      "m1": "NO_DETECTADO",
+      "v3": "NO_DETECTADO",
+      "p_roto_m1": null,
+      "p_roto_v3": null
+    },
+    {
+      "img": "damaged_39_jpg.rf.27037634c9e65761a9dad7b07d807cde.jpg",
+      "i": 0,
+      "real": "Roto",
+      "m1": "NO_DETECTADO",
+      "v3": "DESCARTE",
+      "p_roto_m1": null,
+      "p_roto_v3": 0.23656782507896423
+    },
+    {
+      "img": "damaged_39_jpg.rf.27037634c9e65761a9dad7b07d807cde.jpg",
+      "i": 2,
+      "real": "Roto",
+      "m1": "NO_DETECTADO",
+      "v3": "NO_DETECTADO",
+      "p_roto_m1": null,
+      "p_roto_v3": null
+    },
+    {
+      "img": "damaged_454_jpg.rf.047fddf800f9e39736c84f7f7159b74c.jpg",
+      "i": 1,
+      "real": "Roto",
+      "m1": "NO_DETECTADO",
+      "v3": "NO_DETECTADO",
+      "p_roto_m1": null,
+      "p_roto_v3": null
+    },
+    {
+      "img": "damaged_454_jpg.rf.047fddf800f9e39736c84f7f7159b74c.jpg",
+      "i": 2,
+      "real": "Roto",
+      "m1": "NO_DETECTADO",
+      "v3": "NO_DETECTADO",
+      "p_roto_m1": null,
+      "p_roto_v3": null
+    },
+    {
+      "img": "damaged_64_jpg.rf.602593843647b9ee60b851b576910ac7.jpg",
+      "i": 1,
+      "real": "Roto",
+      "m1": "DESCARTE",
+      "v3": "NO_DETECTADO",
+      "p_roto_m1": 0.43462029099464417,
+      "p_roto_v3": null
+    }
+  ],
+  "latencia_ms": {
+    "modelo 1|hilos=0": 234.47815000254195,
+    "v3|hilos=0": 566.489047507639,
+    "modelo 1|hilos=2": 872.4311800062424,
+    "v3|hilos=2": 1399.613007507287
+  },
+  "integridad": {
+    "dif_prob": 2.3245811462402344e-06,
+    "dif_caja_px": 0.0009765625,
+    "epoch": -1,
+    "version": "8.4.157"
+  },
+  "val_ultralytics": {
+    "modelo 1": {
+      "mAP50": 0.9788970440110274,
+      "mAP50-95": 0.9185001238707198
+    },
+    "v3": {
+      "mAP50": 0.9820921153917626,
+      "mAP50-95": 0.9222973752182785
+    }
+  }
+}

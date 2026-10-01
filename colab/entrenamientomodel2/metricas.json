@@ -1,0 +1,56 @@
+{
+  "top1_test": 0.8725490196078431,
+  "tau_roto": 0.37,
+  "tau_duda": 0.21,
+  "fuga_pct": 4.8,
+  "fuga_ic95": [
+    2.2181703179511376,
+    10.077237376458122
+  ],
+  "fuga_a_empaque_pct": 4.0,
+  "fuga_a_empaque_ic95": [
+    1.7204355344098607,
+    9.022678490873897
+  ],
+  "buenos_a_revision_pct": 1.6574585635359116,
+  "buenos_descartados_pct": 17.12707182320442,
+  "n_test": 306,
+  "n_roto_test": 125,
+  "clases": [
+    "Roto",
+    "Sano",
+    "Sucio"
+  ],
+  "modo": "3clases",
+  "robustez": {
+    "raya_pct": 47.87234042553192,
+    "raya_veredictos": {
+      "BUENO": 44,
+      "BUENO_SUCIO": 0,
+      "REVISION": 5,
+      "DANADO": 45
+    },
+    "blur": {
+      "0": 4.8,
+      "1": 5.6000000000000005,
+      "2": 7.199999999999999,
+      "3": 16.8,
+      "4": 50.4,
+      "6": 92.80000000000001
+    },
+    "brillo": {
+      "0.35": 20.8,
+      "0.5": 12.0,
+      "0.7": 9.6,
+      "1.0": 4.8,
+      "1.4": 8.0,
+      "1.8": 9.6,
+      "2.4": 10.4
+    }
+  },
+  "receta_onnx": {
+    "preprocesamiento": "RGB; lado corto a 224 bilineal; recorte central 224x224; /255; CHW; sin normalizar",
+    "salida": "probabilidades softmax en el orden de 'clases'",
+    "ultralytics": "8.4.157"
+  }
+}

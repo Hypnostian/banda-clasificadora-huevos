@@ -1,0 +1,255 @@
+{
+  "tau_roto": 0.07,
+  "tau_sano": 0.7500703871250153,
+  "conf_min": 0.15,
+  "nitidez_min": 4.0,
+  "test": {
+    "Roto": {
+      "DESCARTE": 237,
+      "REVISION": 1,
+      "ACEPTADO": 2,
+      "NO_DETECTADO": 20,
+      "n": 260
+    },
+    "Sano": {
+      "DESCARTE": 21,
+      "REVISION": 5,
+      "ACEPTADO": 120,
+      "NO_DETECTADO": 3,
+      "n": 149
+    }
+  },
+  "benchmark": {
+    "Roto": {
+      "DESCARTE": 158,
+      "REVISION": 0,
+      "ACEPTADO": 0,
+      "NO_DETECTADO": 10,
+      "n": 168
+    },
+    "Sano": {
+      "DESCARTE": 5,
+      "REVISION": 1,
+      "ACEPTADO": 49,
+      "NO_DETECTADO": 0,
+      "n": 55
+    }
+  },
+  "test_map": {
+    "mAP50": 0.9280469078443594,
+    "mAP50-95": 0.768858987655771
+  },
+  "benchmark_map": {
+    "mAP50": 0.9753608336849525,
+    "mAP50-95": 0.8490135464602384
+  },
+  "robustez": {
+    "test|raya de lapicero en SANOS": {
+      "DESCARTE": 57,
+      "ACEPTADO": 76,
+      "REVISION": 12,
+      "NO_DETECTADO": 4,
+      "n": 149
+    },
+    "test|sello de tinta en SANOS": {
+      "ACEPTADO": 89,
+      "REVISION": 12,
+      "DESCARTE": 45,
+      "NO_DETECTADO": 3,
+      "n": 149
+    },
+    "test|desenfoque r=3 en ROTOS": {
+      "DESCARTE": 225,
+      "REVISION": 8,
+      "NO_DETECTADO": 26,
+      "ACEPTADO": 1,
+      "n": 260
+    },
+    "test|sobreexposicion 2.4x en ROTOS": {
+      "DESCARTE": 183,
+      "NO_DETECTADO": 72,
+      "ACEPTADO": 3,
+      "REVISION": 2,
+      "n": 260
+    },
+    "test|subexposicion 0.35x en ROTOS": {
+      "DESCARTE": 238,
+      "NO_DETECTADO": 19,
+      "REVISION": 2,
+      "ACEPTADO": 1,
+      "n": 260
+    },
+    "benchmark|raya de lapicero en SANOS": {
+      "ACEPTADO": 44,
+      "REVISION": 3,
+      "DESCARTE": 8,
+      "n": 55
+    },
+    "benchmark|sello de tinta en SANOS": {
+      "ACEPTADO": 49,
+      "DESCARTE": 3,
+      "REVISION": 3,
+      "n": 55
+    },
+    "benchmark|desenfoque r=3 en ROTOS": {
+      "DESCARTE": 142,
+      "ACEPTADO": 2,
+      "REVISION": 11,
+      "NO_DETECTADO": 13,
+      "n": 168
+    },
+    "benchmark|sobreexposicion 2.4x en ROTOS": {
+      "DESCARTE": 115,
+      "NO_DETECTADO": 49,
+      "ACEPTADO": 3,
+      "REVISION": 1,
+      "n": 168
+    },
+    "benchmark|subexposicion 0.35x en ROTOS": {
+      "DESCARTE": 156,
+      "ACEPTADO": 1,
+      "NO_DETECTADO": 11,
+      "n": 168
+    }
+  },
+  "color": {
+    "umbral_saturacion": 0.26999999999999996,
+    "exactitud_ajuste": 0.9866593965830607,
+    "exactitud_prueba": 0.9913793103448276,
+    "n_ajuste": 236,
+    "n_prueba": 236
+  },
+  "negativos_duros": {
+    "sello": 162,
+    "imagenes": 400,
+    "lapicero_oscuro": 94,
+    "lapicero_color": 105,
+    "suciedad": 47
+  },
+  "auditoria": {
+    "huevos": {
+      "convencion": "huevo",
+      "ioa_roto_en_sano": 0.028627497641085523,
+      "area_roto_sobre_sano": 4.2049502714289275,
+      "sin_clase_sano": false,
+      "imagenes": 968,
+      "originales": 968,
+      "convencion_usada": "huevo",
+      "descartes": {
+        "imagenes_excluidas": 0,
+        "imagenes_sin_cajas": 0
+      }
+    },
+    "indra": {
+      "convencion": "huevo",
+      "ioa_roto_en_sano": null,
+      "area_roto_sobre_sano": null,
+      "sin_clase_sano": false,
+      "imagenes": 1579,
+      "originales": 1333,
+      "convencion_usada": "huevo",
+      "descartes": {
+        "imagenes_excluidas": 0,
+        "imagenes_sin_cajas": 2
+      }
+    },
+    "360a": {
+      "convencion": "huevo",
+      "ioa_roto_en_sano": null,
+      "area_roto_sobre_sano": null,
+      "sin_clase_sano": false,
+      "imagenes": 2918,
+      "originales": 971,
+      "convencion_usada": "huevo",
+      "descartes": {
+        "imagenes_excluidas": 2918,
+        "imagenes_sin_cajas": 0,
+        "clase sin mapeo: white cracked egg": 1455,
+        "clase sin mapeo: brown cracked egg": 1463
+      }
+    },
+    "360b": {
+      "convencion": "huevo",
+      "ioa_roto_en_sano": null,
+      "area_roto_sobre_sano": null,
+      "sin_clase_sano": false,
+      "imagenes": 2862,
+      "originales": 521,
+      "convencion_usada": "huevo",
+      "descartes": {
+        "imagenes_excluidas": 0,
+        "imagenes_sin_cajas": 0
+      }
+    },
+    "jqutx": {
+      "convencion": "huevo",
+      "ioa_roto_en_sano": 0.2344119811452098,
+      "area_roto_sobre_sano": 0.8586225042563074,
+      "sin_clase_sano": false,
+      "imagenes": 1898,
+      "originales": 792,
+      "convencion_usada": "huevo",
+      "descartes": {
+        "imagenes_excluidas": 0,
+        "imagenes_sin_cajas": 0
+      }
+    },
+    "carlos": {
+      "convencion": "huevo",
+      "ioa_roto_en_sano": null,
+      "area_roto_sobre_sano": null,
+      "sin_clase_sano": false,
+      "imagenes": 803,
+      "originales": 351,
+      "convencion_usada": "huevo",
+      "descartes": {
+        "imagenes_excluidas": 0,
+        "imagenes_sin_cajas": 7
+      }
+    },
+    "aau": {
+      "convencion": "region",
+      "ioa_roto_en_sano": 1.0,
+      "area_roto_sobre_sano": 0.14119802822749686,
+      "sin_clase_sano": false,
+      "imagenes": 501,
+      "originales": 213,
+      "convencion_usada": "region",
+      "descartes": {
+        "imagenes_excluidas": 4,
+        "imagenes_sin_cajas": 3
+      }
+    },
+    "cracked": {
+      "convencion": "huevo",
+      "ioa_roto_en_sano": null,
+      "area_roto_sobre_sano": null,
+      "sin_clase_sano": false,
+      "imagenes": 312,
+      "originales": 76,
+      "convencion_usada": "huevo",
+      "descartes": {
+        "imagenes_excluidas": 0,
+        "imagenes_sin_cajas": 0
+      }
+    },
+    "ducks": {
+      "convencion": "huevo",
+      "ioa_roto_en_sano": null,
+      "area_roto_sobre_sano": null,
+      "sin_clase_sano": false,
+      "imagenes": 922,
+      "originales": 384,
+      "convencion_usada": "huevo",
+      "descartes": {
+        "imagenes_excluidas": 480,
+        "imagenes_sin_cajas": 0
+      }
+    }
+  },
+  "backend_env": {
+    "TAU_ROTO": 0.07,
+    "TAU_SANO": 0.7500703871250153,
+    "CONF_MIN_DETECCION": 0.15
+  }
+}
